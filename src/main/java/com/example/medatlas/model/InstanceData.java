@@ -65,10 +65,10 @@ public class InstanceData {
     private InstanceDataType type;
 
     @Column(name = "x")
-    private int x;
+    private double x;
 
     @Column(name = "y")
-    private int y;
+    private double y;
 
     @Column(name = "path")
     private String path;

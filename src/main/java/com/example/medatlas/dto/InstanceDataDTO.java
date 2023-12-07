@@ -27,8 +27,8 @@ public class InstanceDataDTO {
     private String structureName;
     private int instanceNumber;
     private InstanceDataType type;
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private String path;
     private InstanceDataStatus status;
 }

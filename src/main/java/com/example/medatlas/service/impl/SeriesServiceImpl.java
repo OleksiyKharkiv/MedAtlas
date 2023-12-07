@@ -6,8 +6,11 @@ import com.example.medatlas.dto.SeriesDTOWithoutStudy;
 import com.example.medatlas.dto.StudyDTO;
 import com.example.medatlas.mapper.InstanceDataMapper;
 import com.example.medatlas.mapper.SeriesMapper;
+import com.example.medatlas.model.AnatomicalStructure;
+import com.example.medatlas.model.AnatomicalStructureSubject;
 import com.example.medatlas.model.InstanceData;
 import com.example.medatlas.model.Series;
+import com.example.medatlas.repository.AnatomicalStructureRepository;
 import com.example.medatlas.repository.InstanceDataRepository;
 import com.example.medatlas.repository.SeriesRepository;
 import com.example.medatlas.service.SeriesService;
@@ -28,15 +31,17 @@ public class SeriesServiceImpl implements SeriesService {
     private final StudyService studyService;
     private final InstanceDataRepository instanceDataRepository;
     private final InstanceDataMapper instanceDataMapper;
+    private final AnatomicalStructureRepository anatomicalStructureRepository;
 
     @Autowired
     public SeriesServiceImpl(SeriesRepository seriesRepository, SeriesMapper seriesMapper, StudyService studyService,
-                             InstanceDataRepository instanceDataRepository, InstanceDataMapper instanceDataMapper) {
+                             InstanceDataRepository instanceDataRepository, InstanceDataMapper instanceDataMapper, AnatomicalStructureRepository anatomicalStructureRepository) {
         this.seriesRepository = seriesRepository;
         this.seriesMapper = seriesMapper;
         this.studyService = studyService;
         this.instanceDataRepository = instanceDataRepository;
         this.instanceDataMapper = instanceDataMapper;
+        this.anatomicalStructureRepository = anatomicalStructureRepository;
     }
 
     @Override
@@ -53,8 +58,40 @@ public class SeriesServiceImpl implements SeriesService {
 
     @Override
     public SeriesDTO getSeriesById(UUID id) {
-        Series series = seriesRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Series not found with id: " + id));
-        return seriesMapper.toDTO(series);
+        Series series = seriesRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Series not found with id: " + id));
+
+        SeriesDTO seriesDTO = seriesMapper.toDTO(series);
+
+        // Здесь получаем данные InstanceData для указанной серии
+        List<InstanceDataDTO> instanceDataDTOList = getInstanceDataForSeries(id);
+
+        // Здесь выполняем необходимые операции с InstanceDataDTOList
+        // Например, добавим информацию о цвете темы в каждый InstanceDataDTO
+        List<InstanceDataDTO> modifiedInstanceDataDTOList = instanceDataDTOList.stream()
+                .peek(instanceDataDTO -> {
+                    // Получаем structureId из InstanceDataDTO
+                    UUID structureId = instanceDataDTO.getStructureId();
+
+                    // Получаем цвет темы (subjectColor) по structureId
+                    String subjectColor = getSubjectColorByStructureId(structureId);
+
+                    // Устанавливаем subjectColor в InstanceDataDTO
+                    instanceDataDTO.setSubjectColor(subjectColor);
+                })
+                .collect(Collectors.toList());
+
+        // Устанавливаем модифицированный InstanceDataDTOList в серию
+        seriesDTO.setInstanceDataList(modifiedInstanceDataDTOList);
+
+        // Получаем родительское исследование (study) для серии
+        StudyDTO parentStudy = studyService.getStudyById(seriesDTO.getStudyId());
+
+        if (parentStudy != null) {
+            seriesDTO.setStudyExternalId(parentStudy.getExternalId());
+        }
+
+        return seriesDTO;
     }
 
     @Override
@@ -89,5 +126,17 @@ public class SeriesServiceImpl implements SeriesService {
         return instanceDataList.stream()
                 .map(instanceDataMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+    private String getSubjectColorByStructureId(UUID structureId) {
+        AnatomicalStructure anatomicalStructure = anatomicalStructureRepository.findById(structureId)
+                .orElseThrow(() -> new EntityNotFoundException("AnatomicalStructure not found with id: " + structureId));
+
+        AnatomicalStructureSubject anatomicalStructureSubject = anatomicalStructure.getAnatomicalStructureSubject();
+
+        if (anatomicalStructureSubject != null) {
+            return anatomicalStructureSubject.getColor();
+        } else {
+            return null; // Или верните дефолтное значение, если цвет не найден
+        }
     }
 }
