@@ -16,6 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.net.ssl.SSLSocketFactory;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -24,15 +28,22 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Autowired
-    private JwtAuthFilter authFilter;
+    private JwtAuthFilter jwtAuthFilter;
 
     @Bean
     org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
         return new UserUserDetailsService();
     }
     @Configuration
-    public class SecurityConfiguration {
-
+    public static class SecurityConfiguration {
+        @Bean
+        public SSLSocketFactory sslSocketFactory() throws IOException, URISyntaxException {
+            return new SSLConfig("pemfile.pem", "private-key.pem").getSSLSocketFactory();
+        }
+//            // Adjust the path to your pem files accordingly
+//            return new SSLConfig("pemfile.pem", "private-key.pem")
+//                    .getSSLSocketFactory();
+//        }
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
