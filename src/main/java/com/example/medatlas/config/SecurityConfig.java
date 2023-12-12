@@ -12,15 +12,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.net.ssl.SSLSocketFactory;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -28,46 +25,25 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Autowired
-    private JwtAuthFilter jwtAuthFilter;
+    private JwtAuthFilter authFilter;
 
     @Bean
-    org.springframework.security.core.userdetails.UserDetailsService userDetailsService() {
+    UserDetailsService userDetailsService() {
         return new UserUserDetailsService();
     }
-    @Configuration
-    public static class SecurityConfiguration {
-        @Bean
-        public SSLSocketFactory sslSocketFactory() throws IOException, URISyntaxException {
-            return new SSLConfig("pemfile.pem", "private-key.pem").getSSLSocketFactory();
-        }
-//            // Adjust the path to your pem files accordingly
-//            return new SSLConfig("pemfile.pem", "private-key.pem")
-//                    .getSSLSocketFactory();
-//        }
-        @Bean
-        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            http
-                    .authorizeHttpRequests((authz) -> authz
-                            .anyRequest().authenticated()
-                    )
-                    .httpBasic(withDefaults());
-            return http.build();
-        }
 
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable()
+                .authorizeHttpRequests().requestMatchers("/api/addUser", "/api/getToken", "/api/isRunning").permitAll()
+                .and()
+                .authorizeHttpRequests().requestMatchers("/api/**").authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
-//    @Bean
-//    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        return http.csrf().disable()
-//                .authorizeHttpRequests().requestMatchers("/api/addUser", "/api/getToken").permitAll()
-//                .and()
-//                .authorizeHttpRequests().requestMatchers("/api/**").authenticated()
-//                .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authenticationProvider(authenticationProvider())
-//                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
-//    }
-
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
