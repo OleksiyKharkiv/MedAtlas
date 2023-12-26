@@ -47,6 +47,8 @@ public class JwtService {
 
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("iss",  "http://rerad-auth:5202");
+        claims.put("role",  "admin");
         return createToken(claims, userName);
     }
 

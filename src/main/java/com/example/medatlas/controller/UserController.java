@@ -28,7 +28,7 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @GetMapping("/isRunning")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("permitAll()")
     public String isRunning() {
         return "Service is running";
     }
@@ -39,25 +39,24 @@ public class UserController {
     }
 
     @GetMapping("/getAllUsers")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('admin')")
     public List<User> getAllUsers() {
         return service.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasRole('admin')")
     public User getUserById(@PathVariable int id) {
         return service.getUser(id);
     }
 
     @PostMapping("/getToken")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
 
         if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
+            return jwtService.generateToken(authRequest.getUserName());
         }
-
         throw new UsernameNotFoundException("invalid user details.");
     }
 }

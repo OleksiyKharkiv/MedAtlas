@@ -22,7 +22,7 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User getUser(int id) {
+    public User getUser(long id) {
         Optional<User> userInfo =  repository.findById(id);
 
         if (userInfo.isPresent()) {
@@ -33,8 +33,10 @@ public class UserService {
     }
 
     public String addUser(User user) {
+        System.out.println("Received user: " + user.toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(user);
+        System.out.println("User saved: " + user);
         return "user added to system ";
     }
 }

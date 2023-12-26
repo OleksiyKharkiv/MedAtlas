@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -24,6 +26,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserUserDetailsService userUserDetailsService;
+    private static final List<String> AUTH_WHITELIST = Arrays.asList(
+            "/api/addUser",
+            "/api/getToken",
+            "/api/isRunning",
+            "/api/AnatomicalStructureSubject/"
+    );
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -31,7 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (!isAuthWhitelisted(request.getRequestURI()) && authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             username = jwtService.extractUsername(token);
         }
@@ -46,5 +54,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+    private boolean isAuthWhitelisted(String uri) {
+               return AUTH_WHITELIST.stream().anyMatch(uri::startsWith);
     }
 }
