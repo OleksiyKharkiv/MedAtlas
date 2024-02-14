@@ -1,4 +1,5 @@
 package com.example.medatlas.model;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class AnatomicalStructureSubject {
      * Color*	string 6	HEX цвет
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 
@@ -29,7 +31,7 @@ public class AnatomicalStructureSubject {
     @Column(name = "color", length = 6, unique = true)
     private String color;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "anatomicalStructureSubject")
     private List<AnatomicalStructure> anatomicalStructures;
 
     @Override

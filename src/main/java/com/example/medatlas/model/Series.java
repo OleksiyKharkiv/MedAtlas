@@ -12,7 +12,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "series")
+@Table(name = "series", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_series_number_per_study", columnNames = {"study_id", "number"})
+})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Series {
@@ -27,17 +29,18 @@ public class Series {
      * CoronalFrame	string 250	Кадр для превьюшки корональной плоскости
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private UUID id;
 
     @ManyToOne(targetEntity = Study.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "study_id", referencedColumnName = "id", unique = true)
+    @JoinColumn(name = "study_id", referencedColumnName = "id")
     private Study study;
 
-    @Column(name = "number", unique = true)
+    @Column(name = "number")
     private int number;
 
-    @Column(name = "name", length = 250)
+    @Column(name = "name", length = 250, unique = true)
     private String name;
 
     @Column(name = "preview_frame", length = 250)

@@ -10,23 +10,26 @@ import com.example.medatlas.model.Series;
 import com.example.medatlas.model.Study;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface InstanceDataMapper {
-    InstanceDataMapper INSTANCE = Mappers.getMapper(InstanceDataMapper.class);
-
-    @Mapping(target = "studyDTO", source = "study") // Assuming you have a method to map Study
-    @Mapping(target = "seriesDTO", source = "series") // Assuming you have a method to map Series
-    @Mapping(target = "anatomicalStructureDTO", source = "structure") // Assuming you have a method to map AnatomicalStructure
+    @Mappings({
+            @Mapping(target = "studyId", source = "study.id"),
+            @Mapping(target = "studyName", source = "study.name"),
+            @Mapping(target = "seriesId", source = "series.id"),
+            @Mapping(target = "seriesName", source = "series.name"),
+            @Mapping(target = "seriesNumber", source = "series.number"),
+            @Mapping(target = "structureId", source = "structure.id"),
+            @Mapping(target = "structureName", source = "structure.name"),
+            @Mapping(target = "status", source = "status"),
+    })
     InstanceDataDTO toDTO(InstanceData instanceData);
 
-    @Mapping(target = "study", source = "studyDTO") // Assuming you have a method to map StudyDTO
-    @Mapping(target = "series", source = "seriesDTO") // Assuming you have a method to map SeriesDTO
-    @Mapping(target = "structure", source = "anatomicalStructureDTO") // Assuming you have a method to map AnatomicalStructureDTO
     InstanceData toEntity(InstanceDataDTO instanceDataDTO);
+
     Study toEntity(StudyDTO studyDTO);
 
     StudyDTO toDTO(Study study);
@@ -38,5 +41,6 @@ public interface InstanceDataMapper {
     AnatomicalStructure toEntity(AnatomicalStructureDTO anatomicalStructureDTO);
 
     AnatomicalStructureDTO toDTO(AnatomicalStructure anatomicalStructure);
+
     List<InstanceDataDTO> toDTOList(List<InstanceData> instanceDataList);
 }

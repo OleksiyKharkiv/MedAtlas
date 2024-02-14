@@ -1,22 +1,21 @@
 package com.example.medatlas.mapper;
 
+import com.example.medatlas.dto.InstanceDataDTO;
 import com.example.medatlas.dto.StudyDTO;
+import com.example.medatlas.model.InstanceData;
 import com.example.medatlas.model.Study;
+import com.example.medatlas.repository.StudyRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface StudyMapper {
-    StudyMapper INSTANCE = Mappers.getMapper(StudyMapper.class);
-
-    @Mapping(target = "seriesList", ignore = true) // Assuming you have a method to map Series
-    StudyDTO toDTO(Study study);
-
-    @Mapping(target = "seriesList", ignore = true) // Assuming you have a method to map SeriesDTO
+    @Mapping(target = "seriesList", ignore = true)
     Study toEntity(StudyDTO studyDTO);
 
-    List<StudyDTO> toDTOList(List<Study> studies);
+    StudyDTO toDTO(Study study);
+
+    StudyDTO toDTO(StudyRepository.StudySummary studySummary);
 }
