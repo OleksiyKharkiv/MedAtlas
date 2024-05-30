@@ -322,6 +322,13 @@
             <artifactId>bcprov-jdk18on</artifactId>
             <version>1.73</version>
         </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>net.bytebuddy</groupId>-->
+<!--            <artifactId>byte-buddy</artifactId>-->
+<!--            <version>1.14.16</version>-->
+<!--        </dependency>-->
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -396,10 +403,10 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.graalvm.buildtools</groupId>-->
+<!--                <artifactId>native-maven-plugin</artifactId>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
