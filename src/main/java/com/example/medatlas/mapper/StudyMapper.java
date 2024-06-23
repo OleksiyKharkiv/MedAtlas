@@ -1,14 +1,10 @@
 package com.example.medatlas.mapper;
 
-import com.example.medatlas.dto.InstanceDataDTO;
 import com.example.medatlas.dto.StudyDTO;
-import com.example.medatlas.model.InstanceData;
 import com.example.medatlas.model.Study;
 import com.example.medatlas.repository.StudyRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface StudyMapper {

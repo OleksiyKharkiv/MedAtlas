@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface AnatomicalStructureSubjectMapper {
-
     @Mapping(target = "anatomicalStructures", ignore = true)
     AnatomicalStructureSubjectDTO toDTO(AnatomicalStructureSubject subject, @Context Map<UUID, AnatomicalStructureSubjectDTO> context);
 

@@ -7,11 +7,13 @@ import com.example.medatlas.dto.AnatomicalStructureWithoutSubjectDTO;
 import com.example.medatlas.model.AnatomicalStructure;
 import com.example.medatlas.model.AnatomicalStructureSubject;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AnatomicalStructureMapper {
+
     AnatomicalStructureDTO toDTO(AnatomicalStructure structure);
 
     List<AnatomicalStructureDTO> toDTOList(List<AnatomicalStructure> structureList);

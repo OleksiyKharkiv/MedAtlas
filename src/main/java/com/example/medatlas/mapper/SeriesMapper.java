@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface SeriesMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "study.id", target = "studyId")
+
     SeriesDTO toDTO(Series series);
 
     @Mapping(source = "id", target = "id")

@@ -21,7 +21,4 @@ public class AnatomicalStructureDTO {
     @Getter
     private AnatomicalStructureSubjectWithoutStructuresDTO  anatomicalStructureSubject;
 
-    public void setAnatomicalStructureSubjectDTO(AnatomicalStructureSubjectWithoutStructuresDTO  anatomicalStructureSubject) {
-        this.anatomicalStructureSubject = anatomicalStructureSubject;
-    }
 }
