@@ -14,7 +14,7 @@
     <name>med-atlas</name>
     <description>med-atlas</description>
     <properties>
-        <java.version>20</java.version>
+        <java.version>21</java.version>
         <spring-boot-admin.version>3.1.4</spring-boot-admin.version>
         <spring-boot-starter.version>3.1.4</spring-boot-starter.version>
         <spring-data-jpa.version>3.1.4</spring-data-jpa.version>
@@ -25,65 +25,132 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <mapstruct-processor.version>1.5.5.Final</mapstruct-processor.version>
         <hibernate.version>6.2.0.Final</hibernate.version>
-        <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
-        <servlet-api.version>3.0-alpha-1</servlet-api.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
         <jjwt-api.version>0.11.5</jjwt-api.version>
         <jackson-annotations.version>2.15.2</jackson-annotations.version>
         <nimbus-jose-jwt.version>9.31</nimbus-jose-jwt.version>
         <appverse-web-modules.version>2.0.0-RC10</appverse-web-modules.version>
         <swagger-annotations.version>2.2.15</swagger-annotations.version>
-        <springdoc-openapi.version>2.1.0</springdoc-openapi.version>
-        <springfox.version>3.0.0</springfox.version>
+        <springdoc-openapi.version>1.8.0</springdoc-openapi.version>
     </properties>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
+        <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>${spring-boot-starter.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot</artifactId>-->
+        <!--            <version>${spring-boot.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <version>${spring-boot-starter.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-batch</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jdbc</artifactId>
-        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-data-jdbc</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-graphql</artifactId>
-        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-graphql</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-integration</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
+
+        <!-- SpringDoc OpenAPI -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
+        <!--        <dependency>-->
+        <!--            <groupId>io.swagger.core.v3</groupId>-->
+        <!--            <artifactId>swagger-annotations</artifactId>-->
+        <!--            <version>${swagger-annotations.version}</version>-->
+        <!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springdoc</groupId>-->
+        <!--            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+        <!--            <version>2.5.0</version>-->
+        <!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.14</version>
         </dependency>
+
+        <!-- Hibernate Core -->
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate.orm</groupId>-->
+<!--            <artifactId>hibernate-core</artifactId>-->
+<!--            <version>${hibernate.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.liquibase</groupId>-->
+<!--            <artifactId>liquibase-core</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- JDBC & JPA-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.integration</groupId>-->
+        <!--            <artifactId>spring-integration-jdbc</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.integration</groupId>-->
+        <!--            <artifactId>spring-integration-jpa</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.data</groupId>-->
+        <!--            <artifactId>spring-data-jpa</artifactId>-->
+        <!--            <version>${spring-data-jpa.version}</version>-->
+        <!--        </dependency>-->
+
+        <!-- Spring Boot Starters for Mail, OAuth2, and Security -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-oauth2-client</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -92,132 +159,139 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-web</artifactId>-->
+<!--            <version>${spring-security.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-core</artifactId>-->
+<!--            <version>${spring-security.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-config</artifactId>-->
+<!--            <version>${spring-security.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-oauth2-resource-server</artifactId>-->
+<!--        </dependency>-->
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-security</artifactId>-->
-        <!--            <version>${spring-boot-starter.version}</version>-->
-        <!--            <scope>provided</scope>-->
+        <!--            <artifactId>spring-boot-starter-mail</artifactId>-->
         <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.nimbusds</groupId>-->
-        <!--            <artifactId>nimbus-jose-jwt</artifactId>-->
-        <!--            <version>${nimbus-jose-jwt.version}</version>-->
-        <!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
         <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>${nimbus-jose-jwt.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+
+        <!-- Servlet APIs -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>${jakarta.servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring-security.version}</version>
-        </dependency>
-        <!--        https://mvnrepository.com/artifact/org.springframework.security/spring-security-config &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.security</groupId>-->
-        <!--            <artifactId>spring-security-config</artifactId>-->
-        <!--            <version>6.1.2</version>-->
-        <!--        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-resource-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web-services</artifactId>
-        </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-webflux</artifactId>-->
-        <!--        </dependency>-->
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-jpa</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>${spring-data-jpa.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.integration</groupId>
-            <artifactId>spring-integration-ws</artifactId>
-        </dependency>
+
+
+        <!-- Spring Boot DevTools -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-            <optional>true</optional>
+        </dependency>
+
+        <!-- SpringFox Swagger -->
+        <!--        <dependency>-->
+        <!--            <groupId>io.springfox</groupId>-->
+        <!--            <artifactId>springfox-swagger2</artifactId>-->
+        <!--            <version>${springfox.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.springfox</groupId>-->
+        <!--            <artifactId>springfox-swagger-ui</artifactId>-->
+        <!--            <version>${springfox.version}</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.springfox</groupId>-->
+        <!--            <artifactId>springfox-boot-starter</artifactId>-->
+        <!--            <version>${springfox.version}</version>-->
+        <!--        </dependency>-->
+
+        <!-- JJWT for JWT tokens -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt-api.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-docker-compose</artifactId>-->
-        <!--            <scope>runtime</scope>-->
-        <!--            <optional>true</optional>-->
+        <!--            <groupId>io.jsonwebtoken</groupId>-->
+        <!--            <artifactId>jjwt-jackson</artifactId>-->
+        <!--            <version>${jjwt-api.version}</version>-->
         <!--        </dependency>-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt-api.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Jackson Annotations -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-annotations.version}</version>
+        </dependency>
+
+        <!-- MapStruct for Java Bean Mapping -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct-processor.version}</version>
+        </dependency>
+
+        <!--        PostgreSQL-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
+
+        <!-- Appverse Web Modules -->
+        <!--        <dependency>-->
+        <!--            <groupId>org.appverse.web.framework</groupId>-->
+        <!--            <artifactId>web-security</artifactId>-->
+        <!--            <version>${appverse-web-modules.version}</version>-->
+        <!--        </dependency>-->
+
+
+        <!-- Optional Dependencies -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+
+        <!--        Tests   -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-testcontainers</artifactId>
@@ -243,93 +317,101 @@
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
-            <version>${mapstruct-processor.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>${swagger-annotations.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc-openapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>${springfox.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson-annotations.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.appverse.web.framework.modules.backend.security.authentication</groupId>
-            <artifactId>appverse-web-modules-backend-security-authentication</artifactId>
-            <version>${appverse-web-modules.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${jjwt-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt-api.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt-api.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk18on</artifactId>
-            <version>1.73</version>
-        </dependency>
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>net.bytebuddy</groupId>-->
-<!--            <artifactId>byte-buddy</artifactId>-->
-<!--            <version>1.14.16</version>-->
-<!--        </dependency>-->
 
     </dependencies>
+
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-graphql</artifactId>-->
+    <!--        </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-mail</artifactId>-->
+    <!--        </dependency>-->
+
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-security</artifactId>-->
+    <!--            <version>${spring-boot-starter.version}</version>-->
+    <!--            <scope>provided</scope>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>com.nimbusds</groupId>-->
+    <!--            <artifactId>nimbus-jose-jwt</artifactId>-->
+    <!--            <version>${nimbus-jose-jwt.version}</version>-->
+    <!--        </dependency>-->
+    <!-- https://mvnrepository.com/artifact/com.nimbusds/nimbus-jose-jwt -->
+
+
+    <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+
+
+    <!--        https://mvnrepository.com/artifact/org.springframework.security/spring-security-config &ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.security</groupId>-->
+    <!--            <artifactId>spring-security-config</artifactId>-->
+    <!--            <version>6.1.2</version>-->
+    <!--        </dependency>-->
+
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-starter-webflux</artifactId>-->
+    <!--        </dependency>-->
+
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+
+    <!--    <dependency>-->
+    <!--        <groupId>org.springframework.integration</groupId>-->
+    <!--        <artifactId>spring-integration-webflux</artifactId>-->
+    <!--    </dependency>-->
+
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-docker-compose</artifactId>-->
+    <!--            <scope>runtime</scope>-->
+    <!--            <optional>true</optional>-->
+    <!--        </dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+
+
+    <!--    <dependency>-->
+    <!--        <groupId>io.springfox</groupId>-->
+    <!--        <artifactId>springfox-swagger-ui</artifactId>-->
+    <!--        <version>${springfox.version}</version>-->
+    <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--        <groupId>io.springfox</groupId>-->
+    <!--        <artifactId>springfox-boot-starter</artifactId>-->
+    <!--        <version>${springfox.version}</version>-->
+    <!--    </dependency>-->
+
+
+    <!--    <dependency>-->
+    <!--        <groupId>org.appverse.web.framework.modules.backend.security.authentication</groupId>-->
+    <!--        <artifactId>appverse-web-modules-backend-security-authentication</artifactId>-->
+    <!--        <version>${appverse-web-modules.version}</version>-->
+    <!--    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
+
+
+    <!--    <dependency>-->
+    <!--        <groupId>org.bouncycastle</groupId>-->
+    <!--        <artifactId>bcprov-jdk18on</artifactId>-->
+    <!--        <version>1.73</version>-->
+    <!--    </dependency>-->
+    <!--        &lt;!&ndash; https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy &ndash;&gt;-->
+    <!--        <dependency>-->
+    <!--            <groupId>net.bytebuddy</groupId>-->
+    <!--            <artifactId>byte-buddy</artifactId>-->
+    <!--            <version>1.14.16</version>-->
+    <!--        </dependency>-->
+
     <dependencyManagement>
         <dependencies>
             <!--            <dependency>-->
@@ -339,11 +421,7 @@
             <!--                <type>pom</type>-->
             <!--                <scope>import</scope>-->
             <!--            </dependency>-->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.13.0</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
@@ -403,10 +481,10 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.graalvm.buildtools</groupId>-->
-<!--                <artifactId>native-maven-plugin</artifactId>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.graalvm.buildtools</groupId>-->
+            <!--                <artifactId>native-maven-plugin</artifactId>-->
+            <!--            </plugin>-->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>

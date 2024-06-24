@@ -16,16 +16,16 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface InstanceDataMapper {
-//    @Mappings({
-//            @Mapping(target = "studyId", source = "study.id"),
-//            @Mapping(target = "studyName", source = "study.name"),
-//            @Mapping(target = "seriesId", source = "series.id"),
-//            @Mapping(target = "seriesName", source = "series.name"),
-//            @Mapping(target = "seriesNumber", source = "series.number"),
-//            @Mapping(target = "structureId", source = "structure.id"),
-//            @Mapping(target = "structureName", source = "structure.name"),
-//            @Mapping(target = "status", source = "status"),
-//    })
+    @Mappings({
+            @Mapping(target = "studyId", source = "study.id"),
+            @Mapping(target = "studyName", source = "study.name"),
+            @Mapping(target = "seriesId", source = "series.id"),
+            @Mapping(target = "seriesName", source = "series.name"),
+            @Mapping(target = "seriesNumber", source = "series.number"),
+            @Mapping(target = "structureId", source = "structure.id"),
+            @Mapping(target = "structureName", source = "structure.name"),
+            @Mapping(target = "status", source = "status"),
+    })
     InstanceDataDTO toDTO(InstanceData instanceData);
 
     InstanceData toEntity(InstanceDataDTO instanceDataDTO);

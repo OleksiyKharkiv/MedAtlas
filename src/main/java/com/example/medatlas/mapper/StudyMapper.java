@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface StudyMapper {
-//    @Mapping(target = "seriesList", ignore = true)
+    @Mapping(target = "seriesList", ignore = true)
     Study toEntity(StudyDTO studyDTO);
 
     StudyDTO toDTO(Study study);

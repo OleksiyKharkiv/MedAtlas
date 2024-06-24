@@ -12,12 +12,12 @@ import java.util.UUID;
 @Mapper(componentModel = "spring")
 public interface AnatomicalStructureSubjectMapper {
 
-//    @Mapping(target = "anatomicalStructures", ignore = true)
+    @Mapping(target = "anatomicalStructures", ignore = true)
     AnatomicalStructureSubjectDTO toDTO(AnatomicalStructureSubject subject, @Context Map<UUID, AnatomicalStructureSubjectDTO> context);
 
     AnatomicalStructureSubject toEntity(AnatomicalStructureSubjectDTO subjectDTO);
 
-//    @Mapping(target = "anatomicalStructures", ignore = true)
+    @Mapping(target = "anatomicalStructures", ignore = true)
     AnatomicalStructureSubjectDTO toDTO(AnatomicalStructureSubject subject);
 
     AnatomicalStructureSubjectWithoutStructuresDTO toAnatomicalStructureSubjectWithoutStructuresDTO(AnatomicalStructureSubject subject);
