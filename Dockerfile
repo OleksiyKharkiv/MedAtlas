@@ -22,7 +22,7 @@ COPY --from=build /build/target/MedAtlas-0.0.1-SNAPSHOT.jar /app/MedAtlas-0.0.1-
 RUN groupadd --gid 10001 javauser && useradd --uid 10001 --gid 10001 javauser
 RUN chown -R javauser:javauser /app
 USER javauser
-EXPOSE 8080
+EXPOSE 5203
 
 CMD ["java", "-Dnet.bytebuddy.experimental=true", "-jar", "MedAtlas-0.0.1-SNAPSHOT.jar"]
 

@@ -8,12 +8,12 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface SeriesMapper {
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "study.id", target = "studyId")
+//    @Mapping(source = "id", target = "id")
+//    @Mapping(source = "study.id", target = "studyId")
     SeriesDTO toDTO(Series series);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "studyId", target = "study.id")
+//    @Mapping(source = "id", target = "id")
+//    @Mapping(source = "studyId", target = "study.id")
     Series toEntity(SeriesDTO seriesDTO);
 
     SeriesDTOWithoutStudy toEntity(SeriesDTOWithoutStudy seriesDTOWithoutStudy);
