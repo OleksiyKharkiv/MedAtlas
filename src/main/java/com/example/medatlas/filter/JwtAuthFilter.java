@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
 @AllArgsConstructor
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -56,7 +57,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
+
     private boolean isAuthWhitelisted(String uri) {
-               return AUTH_WHITELIST.stream().anyMatch(uri::startsWith);
+        return AUTH_WHITELIST.stream().anyMatch(uri::startsWith);
     }
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "Series")
-public class SeriesDTO  {
+public class SeriesDTO {
     private UUID id;
     private int number;
     private String name;
@@ -24,5 +24,5 @@ public class SeriesDTO  {
     private int instanceCount;
     private String sagitalFrame;
     private String coronalFrame;
-    private List<InstanceDataDTO>instanceDataList;
+    private List<InstanceDataDTO> instanceDataList;
 }

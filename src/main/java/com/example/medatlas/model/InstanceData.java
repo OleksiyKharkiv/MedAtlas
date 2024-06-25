@@ -81,6 +81,7 @@ public class InstanceData {
     protected void onCreate() {
         this.status = InstanceDataStatus.UNVERIFIED;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

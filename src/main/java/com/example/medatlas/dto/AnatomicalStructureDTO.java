@@ -20,5 +20,4 @@ public class AnatomicalStructureDTO {
     private String description;
     @Getter
     private AnatomicalStructureSubjectWithoutStructuresDTO  anatomicalStructureSubject;
-
 }

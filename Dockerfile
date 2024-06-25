@@ -1,5 +1,5 @@
 # Сборочный этап
-FROM maven:3.8.5-openjdk-17 AS build
+FROM maven:3.8.5-openjdk-21 AS build
 
 COPY pom.xml /build/pom.xml
 COPY src /build/src
@@ -14,7 +14,7 @@ WORKDIR /app
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install openjdk-17-jre && \
+    apt-get -y install openjdk-21-jre && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
