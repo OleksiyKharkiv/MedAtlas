@@ -27,38 +27,14 @@ public class AnatomicalStructureMapperTest {
     }
 
     @Test
-    void toDTO() {
-    }
+    @DisplayName("When we have a correct DTO, then it should return a correct entity")
+    void testDTOToEntity() {
+        AnatomicalStructureDTO structureDTO = ModelCreator.createAnatomicalStructureDTO();
+        AnatomicalStructure anatomicalStructure = anatomicalStructureMapper.toEntity(structureDTO);
 
-    @Test
-    void toEntity() {
-    }
-
-    @Test
-    void testToDTO() {
-    }
-
-    @Test
-    void testToDTO1() {
-    }
-
-    @Test
-    void testToEntity() {
-    }
-
-    @Test
-    void toDTOList() {
-    }
-
-    @Test
-    void toAnatomicalStructureSubjectDTO() {
-    }
-
-    @Test
-    void testToDTO2() {
-    }
-
-    @Test
-    void testToEntity1() {
+        assertAll(
+                () -> assertEquals(structureDTO.getId(), anatomicalStructure.getId()),
+                () -> assertEquals(structureDTO.getName(), anatomicalStructure.getName())
+        );
     }
 }

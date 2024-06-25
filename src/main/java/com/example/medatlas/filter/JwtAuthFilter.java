@@ -7,7 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,16 +19,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-
+@Getter
+@Setter
 @AllArgsConstructor
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    @Autowired
     private JwtService jwtService;
 
-    @Autowired
-    private UserUserDetailsService userUserDetailsService;
+    private final UserUserDetailsService userUserDetailsService;
     private static final List<String> AUTH_WHITELIST = Arrays.asList(
             "/api/addUser",
             "/api/getToken",
