@@ -1,57 +1,23 @@
-# Сборочный этап
-FROM maven:3.8.5-openjdk-21 AS build
+# Используем образ eclipse-temurin:21-jdk
+FROM eclipse-temurin:21-jdk
 
-COPY pom.xml /build/pom.xml
-COPY src /build/src
-WORKDIR /build
+# Устанавливаем необходимые пакеты
+RUN apt-get update \
+    && apt-get install -y ca-certificates curl git --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN mvn clean package -DskipTests
+# Устанавливаем переменные среды Maven
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG /root/.m2
 
-# Выполняемый этап
-FROM ubuntu:23.04
+# Копируем настройки Maven
+COPY --from=maven:3.9.7-eclipse-temurin-11 /usr/share/maven /usr/share/maven
+COPY --from=maven:3.9.7-eclipse-temurin-11 /usr/local/bin/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
+COPY --from=maven:3.9.7-eclipse-temurin-11 /usr/share/maven/ref/settings-docker.xml /usr/share/maven/ref/settings-docker.xml
 
-WORKDIR /app
+# Устанавливаем символическую ссылку для mvn
+RUN ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive \
-    apt-get -y install openjdk-21-jre && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-COPY --from=build /build/target/MedAtlas-0.0.1-SNAPSHOT.jar /app/MedAtlas-0.0.1-SNAPSHOT.jar
-RUN groupadd --gid 10001 javauser && useradd --uid 10001 --gid 10001 javauser
-RUN chown -R javauser:javauser /app
-USER javauser
-EXPOSE 8080
-
-CMD ["java", "-Dnet.bytebuddy.experimental=true", "-jar", "MedAtlas-0.0.1-SNAPSHOT.jar"]
-
-#FROM maven:3.8.5-openjdk-17 AS build
-#
-#COPY pom.xml /build/pom.xml
-#COPY src /build/src
-#WORKDIR /build
-#
-#RUN mvn clean package -DskipTests
-#
-#FROM ubuntu:23.04
-#
-#WORKDIR /app
-#
-#RUN apt-get update && \
-#    DEBIAN_FRONTEND=noninteractive \
-#    apt-get -y install openjdk-17-jre && \
-#    apt-get clean && \
-#    rm -rf /var/lib/apt/lists/*
-#
-#COPY --from=build /build/target/MedAtlas-0.0.1-SNAPSHOT.jar /app/MedAtlas-0.0.1-SNAPSHOT.jar
-#RUN groupadd --gid 10001 javauser && useradd --uid 10001 --gid 10001 javauser
-#RUN chown -R javauser:javauser /app
-#USER javauser
-#EXPOSE 8080
-#
-#CMD "java" "-jar" "MedAtlas-0.0.1-SNAPSHOT.jar"
-
-# here example command to launch 
-# docker build -t atlas-api:local .
-# docker run -p 8080:8080 atlas-api:local
+# Задаем точку входа и команду по умолчанию для Maven
+ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
+CMD ["mvn"]
